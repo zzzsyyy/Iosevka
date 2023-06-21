@@ -31,6 +31,7 @@
           };
           set = "zt";
         }).overrideAttrs (old: {
+          buildInputs = [pkgs.zip];
           installPhase = ''
             mkdir -p $out
             cp -avL dist/*/ttf/* $out
