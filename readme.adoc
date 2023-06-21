@@ -1,0 +1,6 @@
+= Custom Iosevka
+
+[source,console]
+----
+$ nix build github:zzzsyyy/iosevka
+----
