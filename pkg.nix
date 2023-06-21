@@ -1,55 +1,48 @@
-{inputs, lib, ...}: {
-  perSystem = {
-    pkgs,
-    system,
-    config,
-    ...
-  }: {
-    _module.args.pkgs = import inputs.nixpkgs {
-      inherit system;
-      overlays = [
-        inputs.napalm.overlays.default
-      ];
-    };
+{ inputs, lib, ... }: {
 
-    packages = let
-      plan = "iosevka-zt";
-      nv = (pkgs.callPackage ./_sources/generated.nix {}).iosevka;
-      version = lib.removePrefix "v" nv.version;
-      mkZip = src: pkgs.runCommand "${src.pname}-${version}" {
-          inherit src version;
-          nativeBuildInputs = [
-            pkgs.zip
-          ];
-        } ''
-          WORKDIR="$PWD"
-          cd $src
-          zip "$WORKDIR/iosevka.zip" *
-          cp -av "$WORKDIR/iosevka.zip" $out
-        '';
-    in {
-      inherit (nv) src;
+  perSystem =
+    { pkgs
+    , system
+    , config
+    , ...
+    }:
 
-      ttf = pkgs.napalm.buildPackage nv.src {
-        pname = "${plan}-ttf";
-        inherit version;
-        npmCommands = [
-          "npm install"
-          "npm run build --no-update-notifier -- ttf::iosevka-zt >/dev/null"
-        ];
-        nativeBuildInputs = [
-          pkgs.ttfautohint
-        ];
-        postPatch = ''
-          cp -v ${./private-build-plans.toml} private-build-plans.toml
-        '';
-        installPhase = ''
-          mkdir -p $out
-          cp -avL dist/*/ttf/* $out
-        '';
+    {
+      packages = {
+        default = (pkgs.iosevka.override {
+          privateBuildPlan = {
+            family = "Iosevka ZT";
+            spacing = "term";
+            serifs = "sans";
+            no-cv-ss = false;
+            export-glyph-names = true;
+            variants = {
+              inherits = "ss05";
+              design = {
+                a = "single-storey-tailed";
+                i = "serifed-flat-tailed";
+                zero = "oval-tall-slashed";
+                three = "flat-top";
+                ampersand = "upper-open";
+                percent = "rings-continuous-slash-also-connected";
+              };
+            };
+            ligations.inherits = "dlig";
+          };
+          set = "zt";
+        }).overrideAttrs (old: {
+          installPhase = ''
+            mkdir -p $out
+            cp -avL dist/*/ttf/* $out
+            runHook postInstall
+          '';
+          postInstall = ''
+            WORKDIR="$PWD"
+            cd $src
+            zip "$WORKDIR/iosevka.zip" *
+            cp -av "$WORKDIR/iosevka.zip" $out
+          '';
+        });
       };
-
-      default = mkZip config.packages.ttf;
     };
-  };
 }
