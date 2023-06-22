@@ -1,5 +1,7 @@
 on:
-  push
+  push:
+    tags:
+      - "*"
 
 jobs:
   build:
@@ -15,10 +17,12 @@ jobs:
       - name: Build zipfile
         run: |
           nix build -L
-          cp -vL ./result/* ./
+          cp -vL ./result/* ./iosevka.zip
       - uses: ncipollo/release-action@v1
         name: Release
         with:
           omitBody: true
+          allowUpdates: true
           omitName: true
           artifacts: "iosevka.zip"
+          
