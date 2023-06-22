@@ -58,7 +58,7 @@
           };
           set = "zt";
         }).overrideAttrs (old: {
-          nativeBuildInputs = [ pkgs.zip ];
+          nativeBuildInputs = old.nativeBuildInputs ++ [ pkgs.zip ];
           installPhase = ''
             mkdir -p $out
             cp -avL dist/*/ttf/* $out
