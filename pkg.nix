@@ -28,10 +28,37 @@
               };
             };
             ligations.inherits = "dlig";
+            weights = {
+              light = {
+                shape = 300;
+                menu = 300;
+                css = 300;
+              };
+              regular = {
+                shape = 400;
+                menu = 400;
+                css = 400;
+              };
+              medium = {
+                shape = 500;
+                menu = 500;
+                css = 500;
+              };
+              semibold = {
+                shape = 600;
+                menu = 600;
+                css = 600;
+              };
+              bold = {
+                shape = 700;
+                menu = 700;
+                css = 700;
+              };
+            };
           };
           set = "zt";
         }).overrideAttrs (old: {
-          buildInputs = [pkgs.zip];
+          nativeBuildInputs = [ pkgs.zip ];
           installPhase = ''
             mkdir -p $out
             cp -avL dist/*/ttf/* $out
