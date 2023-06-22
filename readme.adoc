@@ -2,5 +2,5 @@
 
 [source,console]
 ----
-$ nix build github:zzzsyyy/iosevka
+$ nix build github:zzzsyyy/Iosevka
 ----
