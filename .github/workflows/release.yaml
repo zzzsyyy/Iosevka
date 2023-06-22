@@ -25,4 +25,5 @@ jobs:
           allowUpdates: true
           omitName: true
           artifacts: "iosevka.zip"
+          token: ${{ secrets.TOKEN }}
           
