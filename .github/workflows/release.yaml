@@ -15,7 +15,7 @@ jobs:
       - name: Build zipfile
         run: |
           nix build -L
-          cp -vL ./result ./iosevka.zip
+          cp -vL ./result/* ./
       - uses: ncipollo/release-action@v1
         name: Release
         with:
