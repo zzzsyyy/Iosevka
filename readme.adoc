@@ -1,5 +1,7 @@
 = Custom Iosevka
 
+image:https://builtwithnix.org/badge.svg["built with nix", link="https://builtwithnix.org/"]
+
 [source,console]
 ----
 $ nix build github:zzzsyyy/Iosevka
