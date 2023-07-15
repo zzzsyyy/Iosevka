@@ -58,13 +58,10 @@
           };
           set = "zt";
         }).overrideAttrs (old: {
-          nativeBuildInputs = old.nativeBuildInputs ++ [ pkgs.zip ];
           dontInstall = true;
           postBuild = ''
-            WORKDIR="$PWD"
             mkdir -p $out
-            zip "$WORKDIR/iosevka.zip" dist/*/ttf/*
-            cp -av "$WORKDIR/iosevka.zip" $out
+            tar caf "$out/Iosevka-${old.version}".tar.xz -C dist/iosevka-zt/ttf/ .
           '';
         });
       };

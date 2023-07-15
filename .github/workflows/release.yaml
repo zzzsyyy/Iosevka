@@ -1,24 +1,25 @@
 on:
   push:
     tags:
-      - "*"
+      - "v*"
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: DeterminateSystems/nix-installer-action@main
       - uses: actions/checkout@v3
-      - name: Run Magic Nix Cache
-        uses: DeterminateSystems/magic-nix-cache-action@v1 
+      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@latest
       - name: Build zipfile
         run: |
-          nix build -vL
-          cp -vL ./result/* ./iosevka.zip
-      - uses: marvinpinto/action-automatic-releases@latest
+          nix build -L
+          cp -vL result/*.tar.xz ./
+      - name: Release
+        uses: ncipollo/release-action@latest
         with:
-          repo_token: "${{ secrets.TOKEN }}"
-          prerelease: false
-          files: |
-            iosevka.zip
-          
+          token: "${{ secrets.TOKEN }}"
+          artifacts: "*.tar.xz"
+          omitBody: true
+          allowUpdates: true
+          omitName: true
+          replacesArtifacts: true
