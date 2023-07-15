@@ -15,7 +15,7 @@ jobs:
           nix build -L
           cp -vL result/*.tar.xz ./
       - name: Release
-        uses: ncipollo/release-action@latest
+        uses: ncipollo/release-action@main
         with:
           token: "${{ secrets.TOKEN }}"
           artifacts: "*.tar.xz"
