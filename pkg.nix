@@ -21,7 +21,6 @@
               design = {
                 a = "single-storey-tailed";
                 i = "serifed-flat-tailed";
-                r = "compact-top-serifed";
                 zero = "oval-tall-slashed";
                 three = "flat-top";
                 ampersand = "upper-open";
