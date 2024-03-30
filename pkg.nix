@@ -14,42 +14,64 @@
             family = "Iosevka ZT";
             spacing = "term";
             serifs = "sans";
-            no-cv-ss = false;
-            export-glyph-names = true;
+            noCvSs = false;
+            exportGlyphNames = true;
             variants = {
               inherits = "ss05";
               design = {
+                capital-q = "crossing";
+                capital-u = "toothless-corner-serifless";
                 a = "single-storey-tailed";
                 i = "serifed-flat-tailed";
-                zero = "oval-tall-slashed";
+                lower-delta = "flat-top";
+                lower-lambda = "tailed-turn";
+                lower-xi = "flat-top";
+                zero = "oval-slashed";
                 three = "flat-top";
                 ampersand = "upper-open";
                 percent = "rings-continuous-slash-also-connected";
               };
             };
+            widths = {
+              Condensed = {
+                shape = 500;
+                menu = 3;
+                css = "condensed";
+              };
+              Normal = {
+                shape = 600;
+                menu = 5;
+                css = "normal";
+              };
+              Extended = {
+                shape = 720;
+                menu = 7;
+                css = "expanded";
+              };
+            };
             ligations.inherits = "dlig";
             weights = {
-              light = {
+              Light = {
                 shape = 300;
                 menu = 300;
                 css = 300;
               };
-              regular = {
+              Regular = {
                 shape = 400;
                 menu = 400;
                 css = 400;
               };
-              medium = {
+              Medium = {
                 shape = 500;
                 menu = 500;
                 css = 500;
               };
-              semibold = {
+              Semibold = {
                 shape = 600;
                 menu = 600;
                 css = 600;
               };
-              bold = {
+              Bold = {
                 shape = 700;
                 menu = 700;
                 css = 700;
@@ -61,7 +83,7 @@
           dontInstall = true;
           postBuild = ''
             mkdir -p $out
-            tar caf "$out/Iosevka-${old.version}".tar.xz -C dist/iosevka-zt/ttf/ .
+            tar caf "$out/Iosevka-${old.version}".tlz -C dist/iosevka-zt/ttf/ .
           '';
         });
       };
