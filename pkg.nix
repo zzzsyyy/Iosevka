@@ -27,7 +27,7 @@
                 lower-lambda = "tailed-turn";
                 lower-xi = "flat-top";
                 zero = "oval-slashed";
-                three = "flat-top";
+                three = "flat-top-serifless";
                 ampersand = "upper-open";
                 percent = "rings-continuous-slash-also-connected";
               };
@@ -83,7 +83,7 @@
           dontInstall = true;
           postBuild = ''
             mkdir -p $out
-            tar caf "$out/Iosevka-${old.version}".tlz -C dist/iosevka-zt/ttf/ .
+            tar caf "$out/Iosevka-${old.version}".tlz -C dist/* .
           '';
         });
       };
