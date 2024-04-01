@@ -13,12 +13,12 @@ jobs:
       - name: Build
         run: |
           nix build -L
-          cp -vL result/*.tlz ./
+          cp -vL result/*.txz ./
       - name: Release
         uses: ncipollo/release-action@main
         with:
           token: "${{ secrets.TOKEN }}"
-          artifacts: "*.tlz"
+          artifacts: "*.txz"
           omitBody: true
           allowUpdates: true
           omitName: true
