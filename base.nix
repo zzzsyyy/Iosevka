@@ -3,6 +3,7 @@
   fetchFromGitHub,
   remarshal,
   ttfautohint-nox,
+  type ? "ttf"
 }:
 let
   metadata = builtins.fromJSON (builtins.readFile ./metadata.json);
@@ -32,7 +33,7 @@ buildNpmPackage rec {
   buildPhase = ''
     export HOME=$TMPDIR
     runHook preBuild
-    npm run build --no-update-notifier --targets contents::${pname}
+    npm run build --no-update-notifier -- ${type}::IosevkaCustom::${pname} >/dev/null
     runHook postBuild
   '';
 
