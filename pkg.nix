@@ -1,18 +1,17 @@
-{ inputs, lib, ... }: {
+{ inputs, lib, ... }:
+{
 
   perSystem =
-    { pkgs
-    , system
-    , config
-    , ...
+    {
+      pkgs,
+      system,
+      config,
+      ...
     }:
 
     {
       packages = {
-        default = (pkgs.iosevka.override {
-          privateBuildPlan = (fromTOML (builtins.readFile ./private-build-plans.toml)).buildPlans.IosevkaZt;
-          set = "zt";
-        }).overrideAttrs (old: {
+        default = (pkgs.callPackage ./base.nix { }).overrideAttrs (old: {
           dontInstall = true;
           postBuild = ''
             mkdir -p $out
