@@ -33,7 +33,7 @@ buildNpmPackage rec {
   buildPhase = ''
     export HOME=$TMPDIR
     runHook preBuild
-    npm run build --no-update-notifier -- ${type}::IosevkaCustom::${pname} >/dev/null
+    npm run build --no-update-notifier -- ${type}::${pname} >/dev/null
     runHook postBuild
   '';
 
